@@ -21,11 +21,12 @@ function gameBoardModule () {
     return tablero
 ;}
 
-function jugadorFactory (nombre, token, activo){
+function jugadorFactory (nombre, token, activo, marca){
     const jugador = {
     nombre,
     token,
     activo,
+    marca,
 
     ponerPieza(tablero){
         let fila = prompt("Indica coordenada de fila");
@@ -43,8 +44,8 @@ function juegoControllerModule(){
     console.log (tablero);
 
     // creo los jugadores
-    const jugador1 = jugadorFactory("p1", 1, 1);
-    const jugador2 = jugadorFactory("p2", 4, 0);
+    const jugador1 = jugadorFactory("p1", 1, 1, "X");
+    const jugador2 = jugadorFactory("p2", 4, 0, "O");
     
     // condicion de victoria
     function condicion(){
@@ -87,4 +88,25 @@ function juegoControllerModule(){
     }
 };
 
-const juego = juegoControllerModule();
+// const juego = juegoControllerModule();
+
+/// DOM STUFF
+
+window.addEventListener("click", function(e){
+    
+    /// pintar casilla
+
+    try{
+        const casilla = document.querySelector(`[id="${e.target.id}"]`)
+        if (casilla.id.includes("celda")){
+            casilla.textContent = "X"
+        } else if (casilla.id.includes("reiniciar")){
+            let celdas = document.querySelectorAll(".celda");
+            celdas.forEach((celda) => (celda.textContent= ""));
+        }
+    }
+    catch (err){}
+
+})
+
+
