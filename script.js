@@ -36,7 +36,7 @@ function tableroDeJuego(){
   const imprimirTablero = () => {
     const tableroConValores = tablero.map((fila) => fila.map((celda) => celda.getValor()))
     console.log(tableroConValores);
-    };
+  };
     
   // Aplicamos return para hacer públicas las varaibles que necesitamos  
   return { getTablero, colocarJugada, imprimirTablero};
@@ -102,7 +102,11 @@ function juegoController(
     console.log(`colocando la ficha del ${getJugadorActivo().nombre} en la coordenada (${fila},${columna})`);
     tablero.colocarJugada(fila, columna, getJugadorActivo().token);
 
+
     // ACA VA LA LÓGICA PARA VER SI ALGUIEN GANÓ
+    console.log("CONDICION VICTORIA")
+    tablero.getValorCelda(0,0);
+
 
     //cambiar de jugador
     cambiarTurnoJugador();
