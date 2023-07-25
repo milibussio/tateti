@@ -28,21 +28,37 @@ function jugadorFactory (nombre, token, activo, marca){
     activo,
     marca,
 
-    ponerPieza(tablero){
-        let fila = prompt("Indica coordenada de fila");
-        let columna = prompt("Indica coordenada de columna");    
-        tablero[fila][columna] = token;
-    }
-    
+    ponerPieza(tablero, casilla){
+        if (casilla === "celda1"){
+            tablero[0][0] = token;
+        } else if (casilla === "celda2"){
+            tablero[0][1] = token;
+        } else if (casilla === "celda3"){
+            tablero[0][2] = token;
+        } else if (casilla === "celda4"){
+            tablero[1][0] = token;
+        } else if (casilla === "celda5"){
+            tablero[1][1] = token;
+        } else if (casilla === "celda6"){
+            tablero[1][2] = token;
+        } else if (casilla === "celda7"){
+            tablero[2][0] = token;
+        } else if (casilla === "celda8"){
+            tablero[2][1] = token;
+        } else if (casilla === "celda9"){
+            tablero[2][2] = token;
+        } 
+        console.log(tablero);
+        return(tablero);
+        }    
     }
     return jugador 
 };
 
 function juegoControllerModule(){
     // creo el tablero
-    const tablero = gameBoardModule();
-    console.log (tablero);
-
+    let tablero = gameBoardModule();
+    
     // creo los jugadores
     const jugador1 = jugadorFactory("p1", 1, 1, "X");
     const jugador2 = jugadorFactory("p2", 4, 0, "O");
@@ -66,47 +82,46 @@ function juegoControllerModule(){
         return (resultados.includes(3) || resultados.includes(12))
     }
 
-    // juego
-    while(condicion() === false){
-        if (jugador1.activo === 1){
-            jugador1.ponerPieza(tablero)
-            jugador1.activo = 0;
-            jugador2.activo = 1;
-        } else {
-            jugador2.ponerPieza(tablero)
-            jugador1.activo = 1;
-            jugador2.activo = 0;
-        }
-        console.log(tablero);       
-    }
+    window.addEventListener("click", function(e){
+        /// pintar casilla
+        try{
+            const casilla = document.querySelector(`[id="${e.target.id}"]`)
+            const titulo = document.getElementById("titulo")
+            if (casilla.id.includes("celda")){
+                if (jugador1.activo === 1 && casilla.textContent === "" && condicion() === false){
+                    jugador1.ponerPieza(tablero, casilla.id)
+                    casilla.textContent = "X"
+                    titulo.textContent = "Juega O"
+                    jugador1.activo = 0;
+                    jugador2.activo = 1;
+                } else if (jugador2.activo === 1 && casilla.textContent === "" && condicion() === false){
+                    jugador2.ponerPieza(tablero, casilla.id)
+                    casilla.textContent = "O"
+                    titulo.textContent = "Juega X"
+                    jugador1.activo = 1;
+                    jugador2.activo = 0;
+                }
+            // ¿ganó?
+            if (condicion()){
+                if (jugador1.activo === 0){
+                    titulo.textContent = "¡Felicidades X!"
+                } else {
 
-    // ¿quién ganó?
-    if (jugador1.activo === 0){
-        console.log('Felicidades jugador 1')
-    } else {
-        console.log('Felicidades jugador 2')
-    }
+                    titulo.textContent = "¡Felicidades O!"                }            
+            } 
+        /// borrar
+            } else if (casilla.id.includes("reiniciar")){
+                let celdas = document.querySelectorAll(".celda");
+                celdas.forEach((celda) => (celda.textContent= ""));
+                jugador1.activo = 1;
+                titulo.textContent = "Juega X"
+                tablero = gameBoardModule();
+            }
+        }
+        catch (err){}
+    })
 };
 
-// const juego = juegoControllerModule();
 
-/// DOM STUFF
-
-window.addEventListener("click", function(e){
-    
-    /// pintar casilla
-
-    try{
-        const casilla = document.querySelector(`[id="${e.target.id}"]`)
-        if (casilla.id.includes("celda")){
-            casilla.textContent = "X"
-        } else if (casilla.id.includes("reiniciar")){
-            let celdas = document.querySelectorAll(".celda");
-            celdas.forEach((celda) => (celda.textContent= ""));
-        }
-    }
-    catch (err){}
-
-})
-
+const juego = juegoControllerModule();
 

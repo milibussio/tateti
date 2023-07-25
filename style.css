@@ -13,8 +13,19 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-width: 350px;
-  min-height: 350px;
+  min-width: 360px;
+  min-height: 620px;
+  max-width: 95vw;
+  max-height: 95vh;
+}
+
+h1 {
+    font-size: 0.4rem;
+    margin: 10px;
+}
+
+table{
+    box-shadow: 5px 5px 0 0 gray;    
 }
 
 table, th, td{
@@ -53,5 +64,5 @@ button {
     min-width: 200px;
     border-width: 0;
     border-radius: 60px;
-      
+    box-shadow: 5px 5px 0 0 gray;    
 }
