@@ -108,6 +108,8 @@ function juegoControllerModule(){
                 } else {
 
                     titulo.textContent = "¡Felicidades O!"                }            
+            } else if (!tablero[0].includes(0) && !tablero[1].includes(0) && !tablero[2].includes(0)){
+                titulo.textContent = "¡Empate!"
             } 
         /// borrar
             } else if (casilla.id.includes("reiniciar")){
