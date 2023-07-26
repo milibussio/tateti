@@ -91,6 +91,7 @@ function juegoControllerModule(){
                 if (jugador1.activo === 1 && casilla.textContent === "" && condicion() === false){
                     jugador1.ponerPieza(tablero, casilla.id)
                     casilla.textContent = "X"
+                    casilla.style= "color: crimson"; 
                     titulo.textContent = "Juega O"
                     jugador1.activo = 0;
                     jugador2.activo = 1;
@@ -98,6 +99,7 @@ function juegoControllerModule(){
                     jugador2.ponerPieza(tablero, casilla.id)
                     casilla.textContent = "O"
                     titulo.textContent = "Juega X"
+                    casilla.style= "color: lightslategray";
                     jugador1.activo = 1;
                     jugador2.activo = 0;
                 }
